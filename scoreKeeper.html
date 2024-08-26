@@ -23,10 +23,9 @@
 
       let ballWiseRes = [];
 
-      
       function addScore(num) {
         if (wicket < 10) {
-            ballWiseRes.push(num);
+          ballWiseRes.push(num);
           score += num;
           rootElement.render(<App />);
           console.log(ballWiseRes);
@@ -35,27 +34,37 @@
 
       function addWicket() {
         if (wicket < 10) {
-            ballWiseRes.push('W');
+          ballWiseRes.push("W");
           wicket += 1;
           rootElement.render(<App />);
           console.log(ballWiseRes);
         }
       }
 
-      const ScoreButtons = ()=>(
+      const ScoreButtons = () => (
         <div>
-            
-            <button onClick={() => addScore(0)}>0</button>
-            <button onClick={() => addScore(1)}>1</button>
-            <button onClick={() => addScore(2)}>2</button>
-            <button onClick={() => addScore(3)}>3</button>
-            {/*we have to use Inline Arrow Function to pass parameters to event handlers */}
-            <button onClick={() => addScore(4)}>4</button>
-            <button onClick={() => addScore(5)}>5</button>
-            <button onClick={() => addScore(6)}>6</button>
-            <button onClick={addWicket}>wicket</button>
-          </div>
-      )
+          <button onClick={() => addScore(0)}>0</button>
+          <button onClick={() => addScore(1)}>1</button>
+          <button onClick={() => addScore(2)}>2</button>
+          <button onClick={() => addScore(3)}>3</button>
+          {/*we have to use Inline Arrow Function to pass parameters to event handlers */}
+          <button onClick={() => addScore(4)}>4</button>
+          <button onClick={() => addScore(5)}>5</button>
+          <button onClick={() => addScore(6)}>6</button>
+          <button onClick={addWicket}>wicket</button>
+        </div>
+      );
+
+      const Result = () => (
+        <div>
+          {ballWiseRes.map((res, index) => (
+            <React.Fragment>
+              {index % 6 === 0 ? <br /> : null}
+              <span key={index}>{res===0? <strong>.</strong>:res}</span>&nbsp;&nbsp;&nbsp;
+            </React.Fragment>
+          ))}
+        </div>
+      );
 
       const App = () => (
         <React.Fragment>
@@ -63,7 +72,8 @@
           <h2>
             SCORE: {score}/{wicket}
           </h2>
-          <ScoreButtons/>
+          <ScoreButtons />
+          <Result />
         </React.Fragment>
       );
       const rootElement = ReactDOM.createRoot(document.getElementById("root"));
