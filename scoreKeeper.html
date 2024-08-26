@@ -15,16 +15,38 @@
     <title>ScoreKeeper App</title>
   </head>
   <body>
-    <div id="root" style="text-align: center;"></div>
+    <div id="root" style="text-align: center"></div>
 
     <script type="text/babel">
       let score = 0;
       let wicket = 0;
 
-      function addOne(){
-        score += 1;
-        rootElement.render(<App />); //we have to rerender app for reflacting score on UI..
-        console.log(score);
+      function addOne() {
+        if (wicket < 10) {
+          score += 1;
+          rootElement.render(<App />); //we have to rerender app for reflacting score on UI..
+          console.log(score);
+        }
+      }
+
+      function addTwo() {
+        if (wicket < 10) {
+          score += 2;
+          rootElement.render(<App />);
+        }
+      }
+      function addScore(num) {
+        if (wicket < 10) {
+          score += num;
+          rootElement.render(<App />);
+        }
+      }
+
+      function addWicket() {
+        if (wicket < 10) {
+          wicket += 1;
+          rootElement.render(<App />);
+        }
       }
 
       const App = () => (
@@ -35,12 +57,13 @@
           </h2>
           <div>
             <button onClick={addOne}>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button>wicket</button>
+            <button onClick={addTwo}>2</button>
+            <button onClick={() => addScore(3)}>3</button>
+            {/*we have to use Inline Arrow Function to pass parameters to event handlers */}
+            <button onClick={() => addScore(4)}>4</button>
+            <button onClick={() => addScore(5)}>5</button>
+            <button onClick={() => addScore(6)}>6</button>
+            <button onClick={addWicket}>wicket</button>
           </div>
         </React.Fragment>
       );
