@@ -20,12 +20,13 @@
     <script type="text/babel">
       let score = 0;
       let wicket = 0;
-
+      let inputRef = React.createRef();
       let ballWiseRes = [];
       let hit = 0;
 
       function addScore(num) {
         hit = num;
+        
         rootElement.render(<App />);
         console.log(hit);
       }
@@ -66,14 +67,22 @@
         event.preventDefault();
 
         ballWiseRes.unshift(hit); //we use unshift because we want to new commentry up and unshift insert element first ..
-        console.log(ballWiseRes);
+        if(hit === 'W'){
+          wicket+=1;
+        }else{
+          score+=hit;
+        }
+        // console.log(inputRef); <-- it gives Object 
+        // console.log(inputRef.current); <-- it gives pointed input feild
+        console.log(inputRef.current.value);
+
         rootElement.render(<App />);
       }
 
       const Form = () => (
         <form onSubmit={handleSubmit} action="post">
           <input type="text" value={hit} />
-          <input type="text" />
+          <input type="text" placeholder="Add a comment" ref={inputRef}/>
           <button>Submit</button>
         </form>
       );
