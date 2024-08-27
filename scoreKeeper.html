@@ -22,20 +22,18 @@
       let wicket = 0;
 
       let ballWiseRes = [];
-      let hit=0;
+      let hit = 0;
 
       function addScore(num) {
-          hit = num;
-          rootElement.render(<App />);
-          console.log(hit);
-        
+        hit = num;
+        rootElement.render(<App />);
+        console.log(hit);
       }
 
       function addWicket() {
-          hit = 'W';
-          rootElement.render(<App />);
-          console.log(hit);
-        
+        hit = "W";
+        rootElement.render(<App />);
+        console.log(hit);
       }
 
       const ScoreButtons = () => (
@@ -57,23 +55,28 @@
           {ballWiseRes.map((res, index) => (
             <React.Fragment>
               {index % 6 === 0 ? <br /> : null}
-              <span key={index}>{res===0? <strong>.</strong>:res}</span>&nbsp;&nbsp;&nbsp;
+              <span key={index}>{res === 0 ? <strong>.</strong> : res}</span>
+              &nbsp;&nbsp;&nbsp;
             </React.Fragment>
           ))}
         </div>
       );
 
-      function handleSubmit(event){
+      function handleSubmit(event) {
         event.preventDefault();
+
+        ballWiseRes.unshift(hit); //we use unshift because we want to new commentry up and unshift insert element first ..
+        console.log(ballWiseRes);
+        rootElement.render(<App />);
       }
 
-      const Form = ()=>(
+      const Form = () => (
         <form onSubmit={handleSubmit} action="post">
-            <input type="text" value={hit}/>
-            <input type="text" /> 
-            <button>Submit</button>   
+          <input type="text" value={hit} />
+          <input type="text" />
+          <button>Submit</button>
         </form>
-      )
+      );
 
       const App = () => (
         <React.Fragment>
@@ -85,6 +88,11 @@
           <br />
           <Form />
           <hr />
+          <div>
+            {ballWiseRes.map((res, index) => (
+              <p key={index}>{res}</p>
+            ))}
+          </div>
         </React.Fragment>
       );
       const rootElement = ReactDOM.createRoot(document.getElementById("root"));
